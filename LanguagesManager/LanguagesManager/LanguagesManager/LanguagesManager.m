@@ -61,6 +61,14 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 
 #pragma mark Langues Management
 
+- (void)setBundle:(NSBundle *)bundle
+{
+    if (![_bundle isEqual:bundle]) {
+        _bundle = bundle;
+        [[NSNotificationCenter defaultCenter] postNotificationName:LanguagesManagerLanguageDidChangeNotification object:nil];
+    }
+}
+
 // Gets the current localized string as in NSLocalizedString.
 // JMOLocalizedString(@"Text to localize",@"Alternative text, in case hte other is not find");
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment
