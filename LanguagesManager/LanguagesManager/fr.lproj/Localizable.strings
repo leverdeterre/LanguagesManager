@@ -6,5 +6,5 @@
   Copyright (c) 2013 Jerome Morissard. All rights reserved.
 */
 
-"home.label.text" = "Bonjour le monde";
+"home.label.text" = "Bonjour le monde, l'application utilise les traductions française";
 "home.button.text" = "Passer en anglais";

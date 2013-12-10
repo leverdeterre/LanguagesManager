@@ -10,6 +10,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const LanguagesManagerLanguageDidChangeNotification;
+
 #define JMOLocalizedString(key, comment) \
 [[LanguagesManager sharedInstance] localizedStringForKey:(key) value:(comment)]
 

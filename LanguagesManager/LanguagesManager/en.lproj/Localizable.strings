@@ -6,5 +6,5 @@
   Copyright (c) 2013 Jerome Morissard. All rights reserved.
 */
 
-"home.label.text" = "Hello Word";
+"home.label.text" = "Hello Word, the application is using english wordings";
 "home.button.text" = "Switch to french";

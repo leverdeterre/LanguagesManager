@@ -10,6 +10,8 @@
 
 static LanguagesManager *sharedInstance = nil;
 
+NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesManagerLanguageDidChangeNotification";
+
 @interface LanguagesManager()
 @property (strong, nonatomic) NSBundle *bundle;
 @property (assign, nonatomic) NSString *currentLanguage;

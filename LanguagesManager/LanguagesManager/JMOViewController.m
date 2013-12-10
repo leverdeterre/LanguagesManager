@@ -9,6 +9,7 @@
 #import "JMOViewController.h"
 
 @interface JMOViewController ()
+
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UIButton *button;
 
