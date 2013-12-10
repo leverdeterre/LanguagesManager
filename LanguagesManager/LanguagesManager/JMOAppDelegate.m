@@ -32,6 +32,8 @@ static dispatch_once_t firstLaunch;
 
 - (void)launchApplication
 {
+    [[LanguagesManager sharedInstance] setSupportedLanguages:@[@"en", @"fr"]];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[[JMOViewController alloc] initWithNibName:nil bundle:nil]];
     navController.navigationBarHidden = YES;
