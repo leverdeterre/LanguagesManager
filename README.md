@@ -3,8 +3,6 @@ LanguagesManager
 
 An easy way to force the language in your applications.
 
-```
-
 ### Usage ... very simple, just configure your supported languages
 ```objective-c
 [[LanguagesManager sharedInstance] setSupportedLanguages:@[@"en", @"fr"]];
