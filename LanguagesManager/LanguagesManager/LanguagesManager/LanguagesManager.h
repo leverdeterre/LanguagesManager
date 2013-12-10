@@ -5,6 +5,8 @@
 //  Created by Jerome Morissard on 12/10/13.
 //  Copyright (c) 2013 Jerome Morissard. All rights reserved.
 //
+//  Apple Docs : https://developer.apple.com/library/mac/documentation/macosx/conceptual/bpinternational/Articles/LanguageDesignations.html
+//  Languages formats : ISO 639-1 and ISO 639-2
 
 #import <Foundation/Foundation.h>
 
@@ -28,11 +30,11 @@
 //gets the string localized
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment;
 
-//getter/setter the language
-- (void)setLanguage:(NSString*) language;
+// Langue support ISO 639-1 and ISO 639-2 format
+- (void)setLanguage:(NSString*)language;
 - (NSString*) getLanguage;
 
-//resets this system.
-- (void)resetLocalization;
+// Langues support ISO 639-1 and ISO 639-2 format
+- (void)setSupportedLanguages:(NSArray *)arrayOfLanguages;
 
 @end

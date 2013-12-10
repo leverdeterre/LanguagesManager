@@ -79,7 +79,7 @@ static LanguagesManager *sharedInstance = nil;
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else {
-        JMOLog(@"%s unsupported language", __FUNCTION__);
+        JMOLog(@"%s unsupported language : %@", __FUNCTION__, language);
     }
 }
 
@@ -103,11 +103,11 @@ static LanguagesManager *sharedInstance = nil;
 }
 
 // Resets the localization system, so it uses the OS default language.
-- (void) resetLocalization
+- (void)setSupportedLanguages:(NSArray *)arrayOfLanguages
 {
-    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"fr",@"en", nil] forKey:@"AppleLanguages"];
+    [[NSUserDefaults standardUserDefaults] setObject:arrayOfLanguages forKey:@"AppleLanguages"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-	self.bundle = [NSBundle mainBundle];
+    [self setLanguage:[arrayOfLanguages objectAtIndex:0]];
 }
 
 
