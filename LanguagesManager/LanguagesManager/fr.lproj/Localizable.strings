@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  LanguagesManager
+
+  Created by Jerome Morissard on 12/10/13.
+  Copyright (c) 2013 Jerome Morissard. All rights reserved.
+*/
+
+"home.label.text" = "Bonjour le monde";
+"home.button.text" = "Passer en anglais";
