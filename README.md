@@ -1,7 +1,7 @@
 LanguagesManager
 ================
 
-An easy way to force the language in your applications.
+An easy way to control manually the language in your application
 
 ### Usage ... very simple, just configure your supported languages
 ```objective-c
