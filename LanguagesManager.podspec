@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
                 'Morissard Jérome' => 'morissardj@gmail.com'
         }
         s.ios.deployment_target = '4.3'
-        s.summary = 'LanguagesManager is a dymanic way to change localization dynamically. '
+        s.summary = 'An easy way to control manually the language in your application.'
         s.license      = { :type => 'MIT' }
         s.homepage = 'https://github.com/leverdeterre/LanguagesManager'
         s.source = {
