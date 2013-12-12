@@ -33,6 +33,7 @@ static dispatch_once_t firstLaunch;
 - (void)launchApplication
 {
     [[LanguagesManager sharedInstance] setSupportedLanguages:@[@"en", @"fr"]];
+    [[LanguagesManager sharedInstance] setNotificationEnable:YES];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[[JMOViewController alloc] initWithNibName:nil bundle:nil]];
@@ -43,7 +44,7 @@ static dispatch_once_t firstLaunch;
 
 - (void)switchLanguage
 {
-    if([[[LanguagesManager sharedInstance] getLanguage] isEqualToString:@"fr"]) {
+    if([[[LanguagesManager sharedInstance] getDefaultLanguage] isEqualToString:@"fr"]) {
         [[LanguagesManager sharedInstance] setLanguage:@"en"];
     }
     else {

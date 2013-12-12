@@ -15,6 +15,7 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 @interface LanguagesManager()
 @property (strong, nonatomic) NSBundle *bundle;
 @property (assign, nonatomic) NSString *currentLanguage;
+@property (assign, nonatomic) BOOL notificationActivated;
 @end
 
 @implementation LanguagesManager
@@ -41,7 +42,7 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 {
     self = [super init];
     if (self) {
-        self.currentLanguage = [self getLanguage];
+        self.currentLanguage = [self getDefaultLanguage];
         NSString *path = [[ NSBundle mainBundle ] pathForResource:self.currentLanguage ofType:@"lproj" ];
         self.bundle = [NSBundle bundleWithPath:path];
     }
@@ -61,11 +62,18 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 
 #pragma mark Langues Management
 
+- (void)setNotificationEnable:(BOOL)enable
+{
+    self.notificationEnable = enable;
+}
+
 - (void)setBundle:(NSBundle *)bundle
 {
     if (![_bundle isEqual:bundle]) {
         _bundle = bundle;
-        [[NSNotificationCenter defaultCenter] postNotificationName:LanguagesManagerLanguageDidChangeNotification object:nil];
+        if (self.notificationActivated) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:LanguagesManagerLanguageDidChangeNotification object:nil];            
+        }
     }
 }
 
@@ -73,6 +81,10 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 // JMOLocalizedString(@"Text to localize",@"Alternative text, in case hte other is not find");
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment
 {
+    if (nil == self.bundle) {
+        NSString *defaultLanguage = [self getDefaultLanguage];
+        [self setLanguage:defaultLanguage];
+    }
 	return [self.bundle localizedStringForKey:key value:comment table:nil];
 }
 
@@ -84,9 +96,6 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
     if ([self isAnAvailableLanguage:language]) {
         NSString *path = [[ NSBundle mainBundle ] pathForResource:language ofType:@"lproj" ];
         self.bundle = [NSBundle bundleWithPath:path];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:language, nil] forKey:@"AppleLanguages"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else {
         JMOLog(@"%s unsupported language : %@", __FUNCTION__, language);
@@ -105,7 +114,7 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 }
 
 // Just gets the current setted up language.
-- (NSString*) getLanguage
+- (NSString*) getDefaultLanguage
 {
 	NSArray* languages = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
 	NSString *preferredLang = [languages objectAtIndex:0];
@@ -115,8 +124,6 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 // Resets the localization system, so it uses the OS default language.
 - (void)setSupportedLanguages:(NSArray *)arrayOfLanguages
 {
-    [[NSUserDefaults standardUserDefaults] setObject:arrayOfLanguages forKey:@"AppleLanguages"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     [self setLanguage:[arrayOfLanguages objectAtIndex:0]];
 }
 

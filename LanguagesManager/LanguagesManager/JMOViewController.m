@@ -24,6 +24,7 @@
     
     self.label.text = JMOLocalizedString(@"home.label.text", nil);
     [self.button setTitle:JMOLocalizedString(@"home.button.text", nil) forState:UIControlStateNormal];
+    
 }
 
 - (void)didReceiveMemoryWarning
