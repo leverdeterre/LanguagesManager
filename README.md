@@ -21,6 +21,8 @@ Reset your window.rootViewController
 #### clean
 Listen to the NSNotification
 ```objective-c
+[[LanguagesManager sharedInstance] setNotificationEnable:YES];
+
 [[NSNotificationCenter defaultCenter] addObserver:self                                                                                                          selector:@selector(reloadMyUI:)
                                       name:LanguagesManagerLanguageDidChangeNotification
                                       object:nil];
