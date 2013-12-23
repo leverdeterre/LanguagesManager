@@ -64,7 +64,7 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 
 - (void)setNotificationEnable:(BOOL)enable
 {
-    self.notificationEnable = enable;
+    self.notificationActivated = enable;
 }
 
 - (void)setBundle:(NSBundle *)bundle
