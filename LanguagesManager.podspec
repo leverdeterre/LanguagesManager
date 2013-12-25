@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
         s.name         = 'LanguagesManager'
-        s.version = '0.0.1'
+        s.version = '0.0.2'
         s.requires_arc = true
         s.author = {
                 'Morissard Jérome' => 'morissardj@gmail.com'
