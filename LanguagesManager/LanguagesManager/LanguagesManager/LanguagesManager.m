@@ -14,7 +14,6 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 
 @interface LanguagesManager()
 @property (strong, nonatomic) NSBundle *bundle;
-@property (assign, nonatomic) NSString *currentLanguage;
 @property (assign, nonatomic) BOOL notificationActivated;
 @end
 
@@ -94,6 +93,7 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 {
 	JMOLog(@"preferredLang: %@", language);
     if ([self isAnAvailableLanguage:language]) {
+        self.currentLanguage = language;
         NSString *path = [[ NSBundle mainBundle ] pathForResource:language ofType:@"lproj" ];
         self.bundle = [NSBundle bundleWithPath:path];
     }

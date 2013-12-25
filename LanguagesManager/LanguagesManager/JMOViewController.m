@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UIButton *button;
+@property (weak, nonatomic) IBOutlet UIButton *button2;
 
 @end
 
@@ -22,20 +23,39 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.label.text = JMOLocalizedString(@"home.label.text", nil);
-    [self.button setTitle:JMOLocalizedString(@"home.button.text", nil) forState:UIControlStateNormal];
-    
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillAppear:animated];
+    
+    [self refreshUI];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUI) name:LanguagesManagerLanguageDidChangeNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:LanguagesManagerLanguageDidChangeNotification object:nil];
+}
+
+- (void)refreshUI
+{
+    self.label.text = JMOLocalizedString(@"home.label.text", nil);
+    [self.button setTitle:JMOLocalizedString(@"home.button.text", nil) forState:UIControlStateNormal];
+    [self.button2 setTitle:JMOLocalizedString(@"home.button2.text", nil) forState:UIControlStateNormal];
 }
 
 - (IBAction)switchPressed:(id)sender
 {
-    [AppDelegate() switchLanguage];
+    [AppDelegate() switchLanguageReloadingRootVc:YES];
 }
+
+- (IBAction)switchSlightlyPressed:(id)sender
+{
+    [AppDelegate() switchLanguageReloadingRootVc:NO];
+}
+
 
 @end

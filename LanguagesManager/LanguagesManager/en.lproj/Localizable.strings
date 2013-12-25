@@ -7,4 +7,5 @@
 */
 
 "home.label.text" = "Hello Word, the application is using english wordings";
-"home.button.text" = "Switch to french";
+"home.button.text" = "Switch to french \"hardly\"";
+"home.button2.text" = "Switch to french \"Slightly\"";

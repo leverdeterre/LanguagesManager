@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JMOViewController">
             <connections>
                 <outlet property="button" destination="2MY-a6-1jL" id="Wjv-zh-3dl"/>
+                <outlet property="button2" destination="2hy-pU-bxR" id="zBC-rG-s8U"/>
                 <outlet property="label" destination="AuN-GH-fkE" id="41B-yL-MDW"/>
                 <outlet property="view" destination="1" id="qnL-MY-FnR"/>
             </connections>
@@ -24,13 +25,23 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2MY-a6-1jL">
-                    <rect key="frame" x="42" y="508" width="237" height="30"/>
+                    <rect key="frame" x="42" y="460" width="237" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <state key="normal" title="Button">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="switchPressed:" destination="-1" eventType="touchUpInside" id="84K-vH-GFk"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2hy-pU-bxR">
+                    <rect key="frame" x="42" y="498" width="237" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <state key="normal" title="Button">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="switchSlightlyPressed:" destination="-1" eventType="touchUpInside" id="UVn-Gf-hz4"/>
                     </connections>
                 </button>
             </subviews>

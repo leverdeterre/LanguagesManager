@@ -12,6 +12,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-- (void)switchLanguage;
+- (void)switchLanguageReloadingRootVc:(BOOL)reloadRootVc;
 
 @end

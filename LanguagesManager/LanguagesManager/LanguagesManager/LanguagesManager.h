@@ -20,6 +20,8 @@ extern NSString * const LanguagesManagerLanguageDidChangeNotification;
 
 @interface LanguagesManager : NSObject
 
+@property (assign, nonatomic) NSString *currentLanguage;
+
 + (LanguagesManager *)sharedInstance;
 
 - (void)setNotificationEnable:(BOOL)enable;

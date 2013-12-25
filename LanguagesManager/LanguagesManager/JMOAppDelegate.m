@@ -42,21 +42,23 @@ static dispatch_once_t firstLaunch;
     [self.window makeKeyAndVisible];
 }
 
-- (void)switchLanguage
+- (void)switchLanguageReloadingRootVc:(BOOL)reloadRootVc
 {
-    if([[[LanguagesManager sharedInstance] getDefaultLanguage] isEqualToString:@"fr"]) {
+    if([[[LanguagesManager sharedInstance] currentLanguage] isEqualToString:@"fr"]) {
         [[LanguagesManager sharedInstance] setLanguage:@"en"];
     }
     else {
         [[LanguagesManager sharedInstance] setLanguage:@"fr"];
     }
     
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[[JMOViewController alloc] initWithNibName:nil bundle:nil]];
-    navController.navigationBarHidden = YES;
-    self.window.rootViewController = navController;
-    
-    [UIView transitionWithView:self.window duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-    } completion:nil];
+    if (YES == reloadRootVc) {
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[[JMOViewController alloc] initWithNibName:nil bundle:nil]];
+        navController.navigationBarHidden = YES;
+        self.window.rootViewController = navController;
+        
+        [UIView transitionWithView:self.window duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        } completion:nil];
+    }
 }
 
 @end

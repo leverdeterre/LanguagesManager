@@ -7,4 +7,5 @@
 */
 
 "home.label.text" = "Bonjour le monde, l'application utilise les traductions française";
-"home.button.text" = "Passer en anglais";
+"home.button.text" = "Passer en anglais \"Brutalement\"";
+"home.button2.text" = "Passer en anglais \"Légèrement\"";
