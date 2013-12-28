@@ -25,11 +25,11 @@ Listen to the LanguagesManager notification
                                       name:LanguagesManagerLanguageDidChangeNotification
                                       object:nil];
                                       
-                                      
-#### Hardly .... 
-Reset your window.rootViewController 
 
 ```
+
+#### Hardly .... 
+Reset your window.rootViewController 
 
 
 
