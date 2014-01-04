@@ -1,18 +1,21 @@
 LanguagesManager
 ================
 
-An easy way to control manually the language in your application
+An easy way to control manually the language in your application.
+Multiple users can be managed to use different languages.
 
-### Very simple usage, just configure your supported languages
-```objective-c
-[[LanguagesManager sharedInstance] setSupportedLanguages:@[@"en", @"fr"]];
-```
-
-###  Change the language
+### Change the language
 
 ```objective-c
 [[LanguagesManager sharedInstance] setLanguage:@"en"]
 ```
+
+### Change for a particular login/user 
+
+```objective-c
+[[LanguagesManager sharedInstance] setLanguage:@"en" forLogin:@"jmo@github.com"]
+```
+
 
 ###  Refreshing your localized elements (look at the sample) 
 
