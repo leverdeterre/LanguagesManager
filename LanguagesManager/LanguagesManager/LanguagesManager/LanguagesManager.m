@@ -8,6 +8,10 @@
 
 #import "LanguagesManager.h"
 
+#define LanguagesManagerAppleLanguagesKey           @"AppleLanguages"
+#define LanguagesManagerAppleLanguagesCustomKey     @"AppleLanguagesCustom"
+#define LanguagesManagerDefaultUserKey              @"DefaultUser"
+
 static LanguagesManager *sharedInstance = nil;
 
 NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesManagerLanguageDidChangeNotification";
@@ -61,23 +65,17 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 
 #pragma mark Langues Management
 
-- (void)setNotificationEnable:(BOOL)enable
-{
-    self.notificationActivated = enable;
-}
-
 - (void)setBundle:(NSBundle *)bundle
 {
     if (![_bundle isEqual:bundle]) {
         _bundle = bundle;
-        if (self.notificationActivated) {
+        if (self.notificationIsEnable) {
             [[NSNotificationCenter defaultCenter] postNotificationName:LanguagesManagerLanguageDidChangeNotification object:nil];            
         }
     }
 }
 
 // Gets the current localized string as in NSLocalizedString.
-// JMOLocalizedString(@"Text to localize",@"Alternative text, in case hte other is not find");
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment
 {
     if (nil == self.bundle) {
@@ -87,20 +85,46 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 	return [self.bundle localizedStringForKey:key value:comment table:nil];
 }
 
-// Sets the desired language of the ones you have.
-// [self setLanguage:@"fr"];
-- (void) setLanguage:(NSString *)language
+// Sets the desired language
+- (void)setLanguage:(NSString *)language
 {
 	JMOLog(@"preferredLang: %@", language);
+    
     if ([self isAnAvailableLanguage:language]) {
-        self.currentLanguage = language;
         NSString *path = [[ NSBundle mainBundle ] pathForResource:language ofType:@"lproj" ];
         self.bundle = [NSBundle bundleWithPath:path];
+        self.currentLanguage = language;
+
+        NSMutableArray* customLanguagesOrder = [[[NSUserDefaults standardUserDefaults] objectForKey:LanguagesManagerAppleLanguagesCustomKey] mutableCopy];
+        if (nil == customLanguagesOrder) {
+            customLanguagesOrder = [[[NSUserDefaults standardUserDefaults] objectForKey:LanguagesManagerAppleLanguagesKey] mutableCopy];
+        }
+        
+        [customLanguagesOrder removeObject:language];
+        [customLanguagesOrder insertObject:language atIndex:0];
+        [[NSUserDefaults standardUserDefaults] setObject:customLanguagesOrder forKey:LanguagesManagerAppleLanguagesCustomKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else {
         JMOLog(@"%s unsupported language : %@", __FUNCTION__, language);
     }
 }
+
+// Just gets the current setted up language.
+- (NSString*)getDefaultLanguage
+{
+    NSArray* customLanguagesOrder = [[NSUserDefaults standardUserDefaults] objectForKey:LanguagesManagerAppleLanguagesCustomKey];
+    if (nil == customLanguagesOrder) {
+        NSArray* languages = [[NSUserDefaults standardUserDefaults] objectForKey:LanguagesManagerAppleLanguagesKey];
+        [[NSUserDefaults standardUserDefaults] setObject:languages forKey:LanguagesManagerAppleLanguagesCustomKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return  [languages objectAtIndex:0];
+    }
+    
+	return [customLanguagesOrder objectAtIndex:0];
+}
+
+#pragma mark Private
 
 - (BOOL)isAnAvailableLanguage:(NSString *)language
 {
@@ -112,20 +136,5 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
         return YES;
     }
 }
-
-// Just gets the current setted up language.
-- (NSString*) getDefaultLanguage
-{
-	NSArray* languages = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
-	NSString *preferredLang = [languages objectAtIndex:0];
-	return preferredLang;
-}
-
-// Resets the localization system, so it uses the OS default language.
-- (void)setSupportedLanguages:(NSArray *)arrayOfLanguages
-{
-    [self setLanguage:[arrayOfLanguages objectAtIndex:0]];
-}
-
 
 @end

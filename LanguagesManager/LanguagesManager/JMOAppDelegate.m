@@ -32,7 +32,6 @@ static dispatch_once_t firstLaunch;
 
 - (void)launchApplication
 {
-    [[LanguagesManager sharedInstance] setSupportedLanguages:@[@"en", @"fr"]];
     [[LanguagesManager sharedInstance] setNotificationEnable:YES];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

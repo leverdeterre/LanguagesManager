@@ -21,10 +21,9 @@ extern NSString * const LanguagesManagerLanguageDidChangeNotification;
 @interface LanguagesManager : NSObject
 
 @property (assign, nonatomic) NSString *currentLanguage;
+@property (assign, nonatomic, getter=notificationIsEnable) BOOL notificationEnable;
 
 + (LanguagesManager *)sharedInstance;
-
-- (void)setNotificationEnable:(BOOL)enable;
 
 //gets the string localized
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment;
@@ -32,9 +31,6 @@ extern NSString * const LanguagesManagerLanguageDidChangeNotification;
 // Langue support ISO 639-1 and ISO 639-2 format
 - (void)setLanguage:(NSString*)language;
 - (NSString*) getDefaultLanguage;
-
-// Langues support ISO 639-1 and ISO 639-2 format
-- (void)setSupportedLanguages:(NSArray *)arrayOfLanguages;
 
 @end
 
