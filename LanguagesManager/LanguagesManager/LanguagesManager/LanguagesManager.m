@@ -9,7 +9,6 @@
 #import "LanguagesManager.h"
 
 #define LanguagesManagerAppleLanguagesKey           @"AppleLanguages"
-#define LanguagesManagerAppleLanguagesCustomKey     @"AppleLanguagesCustom"
 #define LanguagesManagerDefaultUserKey              @"DefaultUser"
 
 static LanguagesManager *sharedInstance = nil;
@@ -18,7 +17,6 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 
 @interface LanguagesManager()
 @property (strong, nonatomic) NSBundle *bundle;
-@property (assign, nonatomic) BOOL notificationActivated;
 @end
 
 @implementation LanguagesManager
@@ -88,21 +86,27 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 // Sets the desired language
 - (void)setLanguage:(NSString *)language
 {
+    [self setLanguage:language forLogin:LanguagesManagerDefaultUserKey];
+}
+
+- (void)setLanguage:(NSString*)language forLogin:(NSString *)login
+{
 	JMOLog(@"preferredLang: %@", language);
     
     if ([self isAnAvailableLanguage:language]) {
         NSString *path = [[ NSBundle mainBundle ] pathForResource:language ofType:@"lproj" ];
         self.bundle = [NSBundle bundleWithPath:path];
         self.currentLanguage = language;
-
-        NSMutableArray* customLanguagesOrder = [[[NSUserDefaults standardUserDefaults] objectForKey:LanguagesManagerAppleLanguagesCustomKey] mutableCopy];
+        NSString *languagekey = [NSString stringWithFormat:@"%@_for_%@",LanguagesManagerAppleLanguagesKey,login];
+        
+        NSMutableArray* customLanguagesOrder = [[[NSUserDefaults standardUserDefaults] objectForKey:languagekey] mutableCopy];
         if (nil == customLanguagesOrder) {
             customLanguagesOrder = [[[NSUserDefaults standardUserDefaults] objectForKey:LanguagesManagerAppleLanguagesKey] mutableCopy];
         }
         
         [customLanguagesOrder removeObject:language];
         [customLanguagesOrder insertObject:language atIndex:0];
-        [[NSUserDefaults standardUserDefaults] setObject:customLanguagesOrder forKey:LanguagesManagerAppleLanguagesCustomKey];
+        [[NSUserDefaults standardUserDefaults] setObject:customLanguagesOrder forKey:languagekey];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else {
@@ -113,16 +117,23 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 // Just gets the current setted up language.
 - (NSString*)getDefaultLanguage
 {
-    NSArray* customLanguagesOrder = [[NSUserDefaults standardUserDefaults] objectForKey:LanguagesManagerAppleLanguagesCustomKey];
+    return [self getDefaultLanguageForLogin:LanguagesManagerDefaultUserKey];
+}
+
+- (NSString*) getDefaultLanguageForLogin:(NSString *)login
+{
+    NSString *languagekey = [NSString stringWithFormat:@"%@_for_%@",LanguagesManagerAppleLanguagesKey,login];
+    NSArray* customLanguagesOrder = [[NSUserDefaults standardUserDefaults] objectForKey:languagekey];
     if (nil == customLanguagesOrder) {
         NSArray* languages = [[NSUserDefaults standardUserDefaults] objectForKey:LanguagesManagerAppleLanguagesKey];
-        [[NSUserDefaults standardUserDefaults] setObject:languages forKey:LanguagesManagerAppleLanguagesCustomKey];
+        [[NSUserDefaults standardUserDefaults] setObject:languages forKey:languagekey];
         [[NSUserDefaults standardUserDefaults] synchronize];
         return  [languages objectAtIndex:0];
     }
     
 	return [customLanguagesOrder objectAtIndex:0];
 }
+
 
 #pragma mark Private
 

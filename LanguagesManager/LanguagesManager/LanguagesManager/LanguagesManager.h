@@ -15,9 +15,6 @@ extern NSString * const LanguagesManagerLanguageDidChangeNotification;
 #define JMOLocalizedString(key, comment) \
 [[LanguagesManager sharedInstance] localizedStringForKey:(key) value:(comment)]
 
-#define JMOLocalizationSetLanguage(language) \
-[[LanguagesManager sharedInstance] setLanguage:(language)]
-
 @interface LanguagesManager : NSObject
 
 @property (assign, nonatomic) NSString *currentLanguage;
@@ -30,7 +27,11 @@ extern NSString * const LanguagesManagerLanguageDidChangeNotification;
 
 // Langue support ISO 639-1 and ISO 639-2 format
 - (void)setLanguage:(NSString*)language;
-- (NSString*) getDefaultLanguage;
+- (NSString*)getDefaultLanguage;
+
+// Multiple users support
+- (void)setLanguage:(NSString*)language forLogin:(NSString *)login;
+- (NSString*) getDefaultLanguageForLogin:(NSString *)login;
 
 @end
 
