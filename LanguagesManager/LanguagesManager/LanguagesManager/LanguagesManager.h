@@ -15,15 +15,24 @@ extern NSString * const LanguagesManagerLanguageDidChangeNotification;
 #define JMOLocalizedString(key, comment) \
 [[LanguagesManager sharedInstance] localizedStringForKey:(key) value:(comment)]
 
+#define JMOSetEnglish() [[LanguagesManager sharedInstance] setLanguage:@"en"]
+#define JMOSetFrench() [[LanguagesManager sharedInstance] setLanguage:@"fr"]
+#define JMOSetTraditionalChinese() [[LanguagesManager sharedInstance] setLanguage:@"zh-Hant"]
+#define JMOSetSimplifiedChinese() [[LanguagesManager sharedInstance] setLanguage:@"zh-Hans"]
+
 @interface LanguagesManager : NSObject
 
 @property (assign, nonatomic) NSString *currentLanguage;
 @property (assign, nonatomic, getter=notificationIsEnable) BOOL notificationEnable;
 
+// Singleton
 + (LanguagesManager *)sharedInstance;
 
 //gets the string localized
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment;
+
+// Gets the localized image
+- (UIImage *)localizedImageName:(NSString *)imageName type:(NSString *)type;
 
 // Langue support ISO 639-1 and ISO 639-2 format
 - (void)setLanguage:(NSString*)language;
