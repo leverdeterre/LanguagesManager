@@ -21,8 +21,6 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 
 @implementation LanguagesManager
 
-#pragma mark Instance Singleton
-
 // Get the shared instance and create it if necessary.
 + (LanguagesManager *)sharedInstance
 {
@@ -81,6 +79,19 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
         [self setLanguage:defaultLanguage];
     }
 	return [self.bundle localizedStringForKey:key value:comment table:nil];
+}
+
+// Gets the current localized image as in localized bundle.
+- (UIImage *)localizedImageName:(NSString *)imageName type:(NSString *)type
+{
+    if (nil == self.bundle) {
+        NSString *defaultLanguage = [self getDefaultLanguage];
+        [self setLanguage:defaultLanguage];
+    }
+    
+    if (!type || [type isEqual:@""]) type = @"png";
+    NSString *imagePath = [self.bundle pathForResource:imageName ofType:type];
+    return [UIImage imageWithContentsOfFile:imagePath];
 }
 
 // Sets the desired language

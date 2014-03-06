@@ -44,10 +44,12 @@ static dispatch_once_t firstLaunch;
 - (void)switchLanguageReloadingRootVc:(BOOL)reloadRootVc
 {
     if([[[LanguagesManager sharedInstance] currentLanguage] isEqualToString:@"fr"]) {
-        [[LanguagesManager sharedInstance] setLanguage:@"en"];
+//        [[LanguagesManager sharedInstance] setLanguage:@"en"];
+        JMOSetEnglish();
     }
     else {
-        [[LanguagesManager sharedInstance] setLanguage:@"fr"];
+//        [[LanguagesManager sharedInstance] setLanguage:@"fr"];
+        JMOSetFrench();
     }
     
     if (YES == reloadRootVc) {

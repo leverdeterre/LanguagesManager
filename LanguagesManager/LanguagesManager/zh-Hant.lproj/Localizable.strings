@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  LanguagesManager
+
+  Created by Jerome Morissard on 12/10/13.
+  Copyright (c) 2013 Jerome Morissard. All rights reserved.
+*/
+
+"home.label.text" = "你好世界，應用程序是使用繁体中文字眼";
+"home.button.text" = "切換到繁体中文 \"hardly\"";
+"home.button2.text" = "切換到繁体中文 \"Slightly\"";

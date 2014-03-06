@@ -10,6 +10,7 @@
 
 @interface JMOViewController ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UIButton *button;
 @property (weak, nonatomic) IBOutlet UIButton *button2;
@@ -45,6 +46,7 @@
     self.label.text = JMOLocalizedString(@"home.label.text", nil);
     [self.button setTitle:JMOLocalizedString(@"home.button.text", nil) forState:UIControlStateNormal];
     [self.button2 setTitle:JMOLocalizedString(@"home.button2.text", nil) forState:UIControlStateNormal];
+    [self.imageView setImage:[[LanguagesManager sharedInstance] localizedImageName:@"image" type:@"png"]];
 }
 
 - (IBAction)switchPressed:(id)sender
