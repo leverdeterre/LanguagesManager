@@ -3,7 +3,7 @@ LanguagesManager
 
 [![Twitter](https://img.shields.io/badge/contact-@leverdeterre-green.svg)](http://twitter.com/leverdeterre)
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg)](http://github.com/leverdeterre/LanguagesManager/LICENSE)
-[![CocoaPods](http://img.shields.io/github/release/leverdeterre/LanguagesManager.svg)](https://github.com/LanguagesManager)
+[![CocoaPods](http://img.shields.io/github/release/leverdeterre/LanguagesManager.svg)](https://github.com/leverdeterre/LanguagesManager)
 
 An easy way to control manually the language in your application.
 Multiple users can be managed to use different languages.
