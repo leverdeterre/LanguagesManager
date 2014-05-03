@@ -25,7 +25,8 @@ Listen to the LanguagesManager notification
 ```objective-c
 [[LanguagesManager sharedInstance] setNotificationEnable:YES];
 
-[[NSNotificationCenter defaultCenter] addObserver:self                                                                                                          selector:@selector(reloadMyUI:)
+[[NSNotificationCenter defaultCenter] addObserver:self           
+                                      selector:@selector(reloadMyUI:)
                                       name:LanguagesManagerLanguageDidChangeNotification
                                       object:nil];
                                       
