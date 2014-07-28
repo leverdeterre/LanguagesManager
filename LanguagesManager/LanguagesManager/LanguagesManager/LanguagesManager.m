@@ -41,7 +41,7 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 {
     self = [super init];
     if (self) {
-        self.currentLanguage = [self getDefaultLanguage];
+        _currentLanguage = [self getDefaultLanguage];
         NSString *path = [[ NSBundle mainBundle ] pathForResource:self.currentLanguage ofType:@"lproj" ];
         self.bundle = [NSBundle bundleWithPath:path];
     }

@@ -22,7 +22,7 @@ extern NSString * const LanguagesManagerLanguageDidChangeNotification;
 
 @interface LanguagesManager : NSObject
 
-@property (assign, nonatomic) NSString *currentLanguage;
+@property (strong, nonatomic) NSString *currentLanguage;
 @property (assign, nonatomic, getter=notificationIsEnable) BOOL notificationEnable;
 
 // Singleton
