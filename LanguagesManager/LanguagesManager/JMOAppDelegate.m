@@ -39,17 +39,16 @@ static dispatch_once_t firstLaunch;
     navController.navigationBarHidden = YES;
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
+    JMOLog(@"availableLanguages:%@",[[LanguagesManager sharedInstance] availableLanguages])
 }
 
 - (void)switchLanguageReloadingRootVc:(BOOL)reloadRootVc
 {
     if([[[LanguagesManager sharedInstance] currentLanguage] isEqualToString:@"fr"]) {
-//        [[LanguagesManager sharedInstance] setLanguage:@"en"];
-        JMOSetEnglish();
+        [[LanguagesManager sharedInstance] setLanguage:@"en"];
     }
     else {
-//        [[LanguagesManager sharedInstance] setLanguage:@"fr"];
-        JMOSetFrench();
+       [[LanguagesManager sharedInstance] setLanguage:@"fr"];
     }
     
     if (YES == reloadRootVc) {

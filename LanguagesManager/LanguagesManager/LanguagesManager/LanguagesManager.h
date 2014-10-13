@@ -3,7 +3,7 @@
 //  LanguagesManager
 //
 //  Created by Jerome Morissard on 12/10/13.
-//  Copyright (c) 2013 Jerome Morissard. All rights reserved.
+//  Copyright (c) 2014 Jerome Morissard. All rights reserved.
 //
 //  Apple Docs : https://developer.apple.com/library/mac/documentation/macosx/conceptual/bpinternational/Articles/LanguageDesignations.html
 //  Languages formats : ISO 639-1 and ISO 639-2
@@ -15,31 +15,81 @@ extern NSString * const LanguagesManagerLanguageDidChangeNotification;
 #define JMOLocalizedString(key, comment) \
 [[LanguagesManager sharedInstance] localizedStringForKey:(key) value:(comment)]
 
-#define JMOSetEnglish() [[LanguagesManager sharedInstance] setLanguage:@"en"]
-#define JMOSetFrench() [[LanguagesManager sharedInstance] setLanguage:@"fr"]
-#define JMOSetTraditionalChinese() [[LanguagesManager sharedInstance] setLanguage:@"zh-Hant"]
-#define JMOSetSimplifiedChinese() [[LanguagesManager sharedInstance] setLanguage:@"zh-Hans"]
-
 @interface LanguagesManager : NSObject
 
-@property (strong, nonatomic) NSString *currentLanguage;
 @property (assign, nonatomic, getter=notificationIsEnable) BOOL notificationEnable;
 
 // Singleton
 + (LanguagesManager *)sharedInstance;
 
-//gets the string localized
+/**
+ *  Gets the string localized in the current language
+ *
+ *  @param key     NSString, Key
+ *  @param comment NSString, comment
+ *
+ *  @return NSString, localized value
+ */
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment;
 
-// Gets the localized image
+/**
+ *   Gets the localized image
+ *
+ *  @param imageName NSString, imageNamed
+ *  @param type      NSString, comment
+ *
+ *  @return UIImage, localized image
+ */
 - (UIImage *)localizedImageName:(NSString *)imageName type:(NSString *)type;
 
 // Langue support ISO 639-1 and ISO 639-2 format
-- (void)setLanguage:(NSString*)language;
+/**
+ *  Change the current language
+ *
+ *  @param language NSString, language
+ *
+ *  @return BOOL, YES if the currentLanguage change
+ */
+- (BOOL)setLanguage:(NSString*)language;
+
+/**
+ *  get Default Language
+ *
+ *  @return NSString, Default Language
+ */
 - (NSString*)getDefaultLanguage;
 
-// Multiple users support
-- (void)setLanguage:(NSString*)language forLogin:(NSString *)login;
+/**
+ *  get Current Language
+ *
+ *  @return NSString, currentLanguage
+ */
+- (NSString *)currentLanguage;
+
+/**
+ *  get available Languages
+ *
+ *  @return NSArray, available Languages
+ */
+- (NSArray *)availableLanguages;
+
+/**
+ *  Multiple users support, Change the current language
+ *
+ *  @param language NSString, currentLanguage change
+ *  @param login    NSString, login
+ *
+ *  @return BOOL, YES if the currentLanguage change
+ */
+- (BOOL)setLanguage:(NSString*)language forLogin:(NSString *)login;
+
+/**
+ *  get Current Language for a specific login
+ *
+ *  @param login  NSString, login
+ *
+ *  @return NSString, Default Language
+ */
 - (NSString*) getDefaultLanguageForLogin:(NSString *)login;
 
 @end

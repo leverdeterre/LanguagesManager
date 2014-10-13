@@ -17,6 +17,7 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 
 @interface LanguagesManager()
 @property (strong, nonatomic) NSBundle *bundle;
+@property (strong, nonatomic) NSString *currentLanguage;
 @end
 
 @implementation LanguagesManager
@@ -59,7 +60,7 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 }
 
 
-#pragma mark Langues Management
+#pragma mark - Languages Management
 
 - (void)setBundle:(NSBundle *)bundle
 {
@@ -95,17 +96,17 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 }
 
 // Sets the desired language
-- (void)setLanguage:(NSString *)language
+- (BOOL)setLanguage:(NSString *)language
 {
-    [self setLanguage:language forLogin:LanguagesManagerDefaultUserKey];
+    return [self setLanguage:language forLogin:LanguagesManagerDefaultUserKey];
 }
 
-- (void)setLanguage:(NSString*)language forLogin:(NSString *)login
+- (BOOL)setLanguage:(NSString*)language forLogin:(NSString *)login
 {
 	JMOLog(@"preferredLang: %@", language);
     
     if ([self isAnAvailableLanguage:language]) {
-        NSString *path = [[ NSBundle mainBundle ] pathForResource:language ofType:@"lproj" ];
+        NSString *path = [[NSBundle mainBundle] pathForResource:language ofType:@"lproj" ];
         self.bundle = [NSBundle bundleWithPath:path];
         self.currentLanguage = language;
         NSString *languagekey = [NSString stringWithFormat:@"%@_for_%@",LanguagesManagerAppleLanguagesKey,login];
@@ -119,9 +120,11 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
         [customLanguagesOrder insertObject:language atIndex:0];
         [[NSUserDefaults standardUserDefaults] setObject:customLanguagesOrder forKey:languagekey];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        return YES;
     }
     else {
         JMOLog(@"%s unsupported language : %@", __FUNCTION__, language);
+        return NO;
     }
 }
 
@@ -131,7 +134,7 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
     return [self getDefaultLanguageForLogin:LanguagesManagerDefaultUserKey];
 }
 
-- (NSString*) getDefaultLanguageForLogin:(NSString *)login
+- (NSString*)getDefaultLanguageForLogin:(NSString *)login
 {
     NSString *languagekey = [NSString stringWithFormat:@"%@_for_%@",LanguagesManagerAppleLanguagesKey,login];
     NSArray* customLanguagesOrder = [[NSUserDefaults standardUserDefaults] objectForKey:languagekey];
@@ -145,6 +148,27 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
 	return [customLanguagesOrder objectAtIndex:0];
 }
 
+- (NSString *)currentLanguage
+{
+    return _currentLanguage;
+}
+
+- (NSArray *)availableLanguages
+{
+    NSString *extension = @"lproj";
+    NSArray *lprojPaths = [[NSBundle mainBundle] pathsForResourcesOfType:extension inDirectory:nil];
+    NSMutableArray *availables = [NSMutableArray new];
+    
+    for (NSString *oneLproj in lprojPaths)
+    {
+        if (![oneLproj isEqualToString:@"Base.lproj"]){
+            NSString *fileName = [oneLproj lastPathComponent];
+            [availables addObject:[fileName stringByDeletingPathExtension]];
+        }
+    }
+    
+    return availables;
+}
 
 #pragma mark Private
 
