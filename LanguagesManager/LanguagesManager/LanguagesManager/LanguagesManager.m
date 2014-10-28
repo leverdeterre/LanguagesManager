@@ -107,8 +107,8 @@ NSString * const LanguagesManagerLanguageDidChangeNotification = @"LanguagesMana
     
     if ([self isAnAvailableLanguage:language]) {
         NSString *path = [[NSBundle mainBundle] pathForResource:language ofType:@"lproj" ];
-        self.bundle = [NSBundle bundleWithPath:path];
         self.currentLanguage = language;
+        self.bundle = [NSBundle bundleWithPath:path];
         NSString *languagekey = [NSString stringWithFormat:@"%@_for_%@",LanguagesManagerAppleLanguagesKey,login];
         
         NSMutableArray* customLanguagesOrder = [[[NSUserDefaults standardUserDefaults] objectForKey:languagekey] mutableCopy];
