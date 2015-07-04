@@ -1,3 +1,7 @@
+## My other librairies
+
+[Have a look to my other librairies] (http://leverdeterre.github.io)
+
 LanguagesManager
 ================
 
